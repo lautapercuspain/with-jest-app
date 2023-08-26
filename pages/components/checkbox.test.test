@@ -1,0 +1,15 @@
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import Checkbox from './Checkbox';
+
+test('It should check the checkbox when checked is passed as true', () => {
+  const { container } = render(<Checkbox checked={true} onChange={() => {}} label="Test Checkbox" />);
+  expect(container.querySelector('input').checked).toEqual(true);
+});
+
+test('It should call the onChange function when clicked', () => {
+  const mockOnChange = jest.fn();
+  const { container } = render(<Checkbox checked={false} onChange={mockOnChange} label="Test Checkbox" />);
+  fireEvent.click(container.querySelector('input'));
+  expect(mockOnChange).toHaveBeenCalledTimes(1);
+});
