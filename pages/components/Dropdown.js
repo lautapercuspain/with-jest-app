@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Dropdown = ({ options, value, onChange, label }) => {
+const Dropdown = ({ dataTestId, options, value, onChange, label }) => {
   const handleOnChange = (event) => {
     const selectedValue = event.target.value;
     onChange(selectedValue);
   };
 
   return (
-    <div>
+    <div data-testid={dataTestId}>
       <label htmlFor="dropdown">{label}</label>
       <select id="dropdown" value={value} onChange={handleOnChange}>
         {options.map((option) => (
