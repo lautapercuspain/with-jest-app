@@ -1,0 +1,60 @@
+```javascript
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import Dropdown from './Dropdown';
+
+const options = [
+  { value: 'option1', label: 'Option 1' },
+  { value: 'option2', label: 'Option 2' },
+  { value: 'option3', label: 'Option 3' },
+];
+
+describe('Dropdown', () => {
+  test('renders correctly with default props', () => {
+    const { getByTestId } = render(<Dropdown dataTestId="dropdown" options={options} />);
+    
+    const dropdown = getByTestId('dropdown');
+    const select = dropdown.querySelector('select');
+    
+    expect(dropdown).toBeInTheDocument();
+    
+    expect(select).toBeInTheDocument();
+    expect(select).toHaveValue('');
+    expect(select).toHaveDisplayValue(''); // Only works with React Testing Library v11.2.0+
+    
+    const label = dropdown.querySelector('label');
+    expect(label).toBeInTheDocument();
+    expect(label).toHaveTextContent('');
+    
+    const renderedOptions = select.querySelectorAll('option');
+    expect(renderedOptions.length).toBe(options.length);
+    options.forEach((option, index) => {
+      expect(renderedOptions[index]).toHaveValue(option.value);
+      expect(renderedOptions[index]).toHaveTextContent(option.label);
+    });
+  });
+  
+  test('renders correctly with provided props', () => {
+    const onChange = jest.fn();
+    const label = 'Dropdown';
+    const value = 'option2';
+    
+    const { getByTestId } = render(
+      <Dropdown dataTestId="dropdown" options={options} value={value} onChange={onChange} label={label} />
+    );
+    
+    const dropdown = getByTestId('dropdown');
+    const select = dropdown.querySelector('select');
+    
+    expect(select).toHaveValue(value);
+    expect(select).toHaveDisplayValue('Option 2'); // Only works with React Testing Library v11.2.0+
+    
+    const labelElement = dropdown.querySelector('label');
+    expect(labelElement).toHaveTextContent(label);
+    
+    fireEvent.change(select, { target: { value: 'option3' } });
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith('option3');
+  });
+});
+```
