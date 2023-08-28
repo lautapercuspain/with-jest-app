@@ -3,10 +3,8 @@ name: Tests
 on: [push, pull_request]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
- 
     steps:
         - uses: actions/checkout@v3
         - uses: actions/setup-node@v3
@@ -15,3 +13,8 @@ jobs:
             cache: 'npm'
         - run: npm install
         - run: npm run test:ci
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v3
+        - uses: ArtiomTr/jest-coverage-report-action@v2      
