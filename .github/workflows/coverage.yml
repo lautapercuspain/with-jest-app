@@ -1,9 +1,9 @@
 name: Coverage
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
-  covergare:
+  coverage:
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v3
