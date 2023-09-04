@@ -1,4 +1,4 @@
-import React from 'react';
+import { act } from 'react';
 import { render, cleanup, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Timer from './Timer';
