@@ -1,1 +1,0 @@
-Sorry, but without knowing the component to be tested, I can't create appropriate unit tests. Please provide the component code to be tested.
