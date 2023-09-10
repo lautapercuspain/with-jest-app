@@ -1,0 +1,34 @@
+Sure, here is the corresponding test:
+
+```tsx
+import React from "react";
+import { render, fireEvent, cleanup, waitFor } from "@testing-library/react";
+import "@testing-library/jest-dom/extend-expect";
+
+import TextInput from "./TextInput";
+
+afterEach(cleanup);
+
+test("Renders TextInput and verifies onChange event", async () => {
+  const mockOnChange = jest.fn();
+  const { getByLabelText } = render(
+    <TextInput 
+      id="testTextInput" 
+      label="Test Input" 
+      type="text" 
+      placeholder="Enter text" 
+      value="" 
+      onChange={mockOnChange}
+    />
+  );
+
+  const inputField = getByLabelText("Test Input");
+  fireEvent.change(inputField, { target: { value: 'New Value' }});
+
+  await waitFor(() => {
+    expect(mockOnChange).toHaveBeenCalled();
+    expect(inputField.value).toBe('New Value');
+  });
+});
+```
+The above test case ensures that the "TextInput" component properly triggers its "onChange" function and updates its value when the user types in new text.
