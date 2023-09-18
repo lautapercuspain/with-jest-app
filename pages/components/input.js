@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Input = ({ value, onChange }) => {
-  const [inputValue, setInputValue] = useState(value);
+const CustomInput = ({type}) => {
+  const [value, setValue] = React.useState('');
 
   const handleChange = (event) => {
-    const newValue = event.target.value;
-    setInputValue(newValue);
-    onChange(newValue);
-  }
+    setValue(event.target.value);
+  };
 
   return (
-    <input type="text" value={inputValue} onChange={handleChange} />
+    <input
+      type={type}
+      value={value}
+      onChange={handleChange}
+    />
   );
 };
 
-export default Input;
+export default CustomInput;
