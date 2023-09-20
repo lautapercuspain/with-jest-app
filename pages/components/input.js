@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CustomInput = ({type}) => {
+const Input = ({type}) => {
   const [value, setValue] = React.useState('');
 
   const handleChange = (event) => {
@@ -16,4 +16,4 @@ const CustomInput = ({type}) => {
   );
 };
 
-export default CustomInput;
+export default Input;
