@@ -1,0 +1,1 @@
+Sorry, the provided code snippet is "undefined" which is not sufficient to create a unit test. Can you please provide a valid React component so I can generate the corresponding unit tests?
