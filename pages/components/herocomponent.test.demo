@@ -1,0 +1,39 @@
+Your test code looks pretty good. However, you have asked to create a test for a single unit or feature of the application. As I understand, the unit you are testing is the HeroComponent. But in your test, you are testing multiple features or behaviours of the HeroComponent, like rendering image, rendering title, and rendering description.
+
+Each test should ideally test a single feature or behaviour of the unit under test. So, you could potentially break down your test into smaller tests. Also you don't need to use the async/await syntax in your tests since the getByRole and getByText methods are synchronous. Here is how you could write it:
+
+```jsx
+import React from 'react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+import HeroComponent from './HeroComponent';
+
+describe('HeroComponent', () => {
+  const mockProps = {
+    image: 'testImage.jpg',
+    title: 'Test Title',
+    description: 'Test Description'
+  };
+
+  beforeEach(() => {
+    render(<HeroComponent {...mockProps} />);
+  });
+
+  test('renders image correctly', () => {
+    const imageNode = screen.getByRole('img');
+    expect(imageNode).toHaveAttribute('src', mockProps.image);
+  });
+
+  test('renders title correctly', () => {
+    const titleNode = screen.getByRole('heading');
+    expect(titleNode).toHaveTextContent(mockProps.title);
+  });
+
+  test('renders description correctly', () => {
+    const descriptionNode = screen.getByText(mockProps.description);
+    expect(descriptionNode).toBeInTheDocument();
+  });
+});
+```
+
+This way, each test is responsible for testing a single feature or behaviour of the HeroComponent. This keeps the tests easy to read and maintain. It also makes it easier to identify which feature or behaviour is broken when a test fails.
