@@ -1,0 +1,42 @@
+You already gave the testing code in your context, but I noticed there were some issues with it. Here is an enhanced version of your unit tests:
+
+```jsx
+import React from 'react';
+import { render, waitFor, screen } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+import HeroComponent from './HeroComponent';
+
+describe('HeroComponent', () => {
+  const mockProps = {
+    image: 'testImage.jpg',
+    title: 'Test Title',
+    description: 'Test Description'
+  };
+
+  it('renders image correctly', async () => {
+    render(<HeroComponent {...mockProps} />);
+    const imageNode = await waitFor(() => document.querySelector('img'));
+    expect(imageNode).toHaveAttribute('src', mockProps.image);
+  });
+
+  it('renders title correctly', async () => {
+    render(<HeroComponent {...mockProps} />);
+    const titleNode = await waitFor(() =>
+      screen.getByText(mockProps.title));
+    expect(titleNode).toBeInTheDocument();
+  });
+
+  it('renders description correctly', async () => {
+    render(<HeroComponent {...mockProps} />);
+    const descriptionNode = await waitFor(() => 
+      screen.getByText(mockProps.description));
+    expect(descriptionNode).toBeInTheDocument();
+  });
+});
+```
+
+Here are the changes:
+
+1. Importing fireEvent was removed as it was not used in any of the tests.
+2. To fetch an img element, I used document.querySelector('img') in place of screen.getByRole('img') which is not a valid role.
+3. For fetching title and description, used screen.getByText in place of screen.getByRole as the role for generic text items is not defined.
