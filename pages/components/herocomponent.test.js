@@ -1,4 +1,3 @@
-```javascript
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import HeroComponent from './HeroComponent';
@@ -26,4 +25,3 @@ describe('HeroComponent', () => {
     expect(descriptionElement.textContent).toBe('Test Description');
   });
 });
-```
